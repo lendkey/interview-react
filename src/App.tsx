@@ -1,26 +1,18 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Container from "react-bootstrap/Container";
+import { RocketTable } from "./components/rocketTable";
+import configureStore from "./store/configureStore";
+import { Provider } from "react-redux";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const store = configureStore();
 
-export default App;
+export const App = () => (
+  <Provider store={store}>
+    <Container>
+      <main role="main">
+        <h1>Rockets</h1>
+        <RocketTable />
+      </main>
+    </Container>
+  </Provider>
+);
