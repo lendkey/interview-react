@@ -1,10 +1,14 @@
+## Introduction
+
 This is a sample React/Typescript project that we use for Front End Engineer interviews. It displays a list of rockets. It's just a single page, but it has some realistic complexity because it uses [Typescript](https://www.typescriptlang.org), [redux](https://redux.js.org), and [redux-saga](https://redux-saga.js.org).
+
+Demo: https://lendkey.github.io/interview-react/
 
 It has (almost 😀) complete test coverage and is configured for [eslint](https://eslint.org).
 
 If you're ready to begin, you can find your assignment in [the sample ticket](SAMPLE_TICKET.md).
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). The standard docs are below.
 
 ## Available Scripts
 
