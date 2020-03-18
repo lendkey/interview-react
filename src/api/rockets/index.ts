@@ -68,7 +68,7 @@ export const getRockets = async () => {
 // Call the API endpoint and return the response body
 export const getRocketsList = async () => {
   try {
-    //I do no believe parsing an axios response is necessary so I removed it.
+    //I do not believe parsing an axios response is necessary so I removed it.
     //Had to troubleshoot for a few minutes why data was not passing through, the culprit was the parse function.
     const data: JsonResponse = await getRockets();
     const apiRockets: JsonRocket[] = data.rockets;

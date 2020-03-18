@@ -27,7 +27,7 @@ describe("RocketTable component", () => {
       const table = await findByTestId("rockets");
       const { getAllByRole } = within(table);
       expect(getAllByRole("columnheader")).toHaveLength(3);
-      expect(getAllByRole("row")).toHaveLength(5);
+      expect(getAllByRole("row")).toHaveLength(31);
     });
   });
 

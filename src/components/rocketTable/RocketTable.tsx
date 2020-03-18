@@ -9,10 +9,6 @@ import styled from "styled-components";
 import { ApiError } from "../../api/types";
 import { RocketRow } from ".";
 
-import { getRockets, getRocketsList } from "../../api/rockets/index";
-
-console.log(getRocketsList());
-
 interface AlertsProps {
   errors: ApiError[];
 }
