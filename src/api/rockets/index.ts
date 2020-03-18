@@ -33,6 +33,7 @@ export const parseUrl = (url: string | undefined) => {
     }
   } catch (e) {
     // Oh no!
+    console.log(e.message);
   }
   return result;
 };
@@ -54,18 +55,22 @@ const transformResponseRecord = (json: JsonRocket): Rocket => {
 
 // Simulate calling the API endpoint https://launchlibrary.net/1.4/rocket?mode=list
 export const getRockets = async () => {
+  //leaving this in for dramatic effect!
   await new Promise(resolve => setTimeout(resolve, 500)); // Wait 0.5s for dramatic effect
+  //saving my api call to a variable for ease of reading
   const url = "https://launchlibrary.net/1.4/rocket?mode=list";
+  //Using the JsonResponse TYPE as generic for my axios call
   const response = await axios.get<JsonResponse>(url);
-  console.log(response.data);
+  //axios returns a promise with a "data" field on the response, passing this to getRocketsList function
   return response.data;
 };
 
 // Call the API endpoint and return the response body
 export const getRocketsList = async () => {
   try {
+    //I do no believe parsing an axios response is necessary so I removed it.
+    //Had to troubleshoot for a few minutes why data was not passing through, the culprit was the parse function.
     const data: JsonResponse = await getRockets();
-    // console.log("test", data.rockets);
     const apiRockets: JsonRocket[] = data.rockets;
     const rockets = apiRockets.map(record => transformResponseRecord(record));
     return { data: rockets };
