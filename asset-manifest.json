@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.js": "/interview-react/static/js/main.e12c3ba6.chunk.js",
-    "main.js.map": "/interview-react/static/js/main.e12c3ba6.chunk.js.map",
+    "main.js": "/interview-react/static/js/main.e58abc93.chunk.js",
+    "main.js.map": "/interview-react/static/js/main.e58abc93.chunk.js.map",
     "runtime-main.js": "/interview-react/static/js/runtime-main.05ce016f.js",
     "runtime-main.js.map": "/interview-react/static/js/runtime-main.05ce016f.js.map",
-    "static/js/2.45c59e2c.chunk.js": "/interview-react/static/js/2.45c59e2c.chunk.js",
-    "static/js/2.45c59e2c.chunk.js.map": "/interview-react/static/js/2.45c59e2c.chunk.js.map",
+    "static/js/2.4b555d1a.chunk.js": "/interview-react/static/js/2.4b555d1a.chunk.js",
+    "static/js/2.4b555d1a.chunk.js.map": "/interview-react/static/js/2.4b555d1a.chunk.js.map",
     "index.html": "/interview-react/index.html",
-    "precache-manifest.f1da573d4ef4cb9be0c1d7f438e94f2a.js": "/interview-react/precache-manifest.f1da573d4ef4cb9be0c1d7f438e94f2a.js",
+    "precache-manifest.114ef5c6570832ad224e04b21b81c3ac.js": "/interview-react/precache-manifest.114ef5c6570832ad224e04b21b81c3ac.js",
     "service-worker.js": "/interview-react/service-worker.js",
-    "static/js/2.45c59e2c.chunk.js.LICENSE.txt": "/interview-react/static/js/2.45c59e2c.chunk.js.LICENSE.txt"
+    "static/js/2.4b555d1a.chunk.js.LICENSE.txt": "/interview-react/static/js/2.4b555d1a.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.05ce016f.js",
-    "static/js/2.45c59e2c.chunk.js",
-    "static/js/main.e12c3ba6.chunk.js"
+    "static/js/2.4b555d1a.chunk.js",
+    "static/js/main.e58abc93.chunk.js"
   ]
 }
