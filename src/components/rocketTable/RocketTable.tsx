@@ -9,6 +9,10 @@ import styled from "styled-components";
 import { ApiError } from "../../api/types";
 import { RocketRow } from ".";
 
+import { getRockets, getRocketsList } from "../../api/rockets/index";
+
+console.log(getRocketsList());
+
 interface AlertsProps {
   errors: ApiError[];
 }
@@ -43,6 +47,7 @@ export const UnconnectedRocketTable: FC<RocketsState> = ({
   if (errors.length > 0) {
     return <Alerts errors={errors} />;
   } else if (loading) {
+    console.log(page);
     return <Loading />;
   } else if (page.length === 0) {
     return <p>Sorry, no rockets found.</p>;
