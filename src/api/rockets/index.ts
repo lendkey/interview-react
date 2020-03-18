@@ -1,4 +1,5 @@
 import { Rocket } from "../../store/rockets/types";
+import moment from "moment";
 
 /* This is the API adapter for Launch Library's rocket endpoint:
    https://launchlibrary.net/docs/1.4.1/api.html#rocket
@@ -42,7 +43,7 @@ const transformResponseRecord = (json: JsonRocket): Rocket => {
     name: json.name,
     configuration: json.configuration,
     wikiURL: parseUrl(json.wikiURL),
-    changed: new Date(json.changed)
+    changed: moment(json.changed, "YYYY-MM-DD HH:mm:ss")
   };
 };
 

@@ -16,6 +16,6 @@ export const RocketRow: FC<RocketRowProps> = ({ rocket }) => (
       <StyledLink href={rocket.wikiURL?.href}>{rocket.name}</StyledLink>
     </td>
     <td>{rocket.configuration}</td>
-    <td>{rocket.changed.toLocaleDateString()}</td>
+    <td>{rocket.changed.format("LL")}</td>
   </tr>
 );

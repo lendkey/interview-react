@@ -1,4 +1,5 @@
 import { ApiError } from "../../api/types";
+import { Moment } from "moment";
 
 // This file holds our state type, as well as any other types related to the rockets Redux store.
 
@@ -8,7 +9,7 @@ export interface Rocket {
   name: string;
   configuration?: string;
   wikiURL?: URL;
-  changed: Date;
+  changed: Moment;
 }
 
 // Use `enum`s for better autocompletion of action type names. These will

@@ -1,4 +1,5 @@
 import { getRocketsList, parseUrl } from "./";
+import moment from "moment";
 
 describe("getRocketsList()", () => {
   it("returns an array of Rockets", async () => {
@@ -6,7 +7,7 @@ describe("getRocketsList()", () => {
     if (response.data) {
       expect(response.data.length).toEqual(4);
       expect(response.data[0]).toEqual({
-        changed: new Date("2017-02-21 00:00:00"),
+        changed: moment("2017-02-21 00:00:00", "YYYY-MM-DD HH:mm:ss"),
         configuration: "9 v1.1",
         id: 1,
         name: "Falcon 9 v1.1",
