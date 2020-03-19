@@ -23,6 +23,11 @@
     "typesafe-actions": "^5.1.0",
     "typescript": "^3.8.3"
   },
+  "jest": {
+    "coveragePathIgnorePatterns": [
+      "src/serviceWorker.ts"
+    ]
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
