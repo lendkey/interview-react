@@ -31,6 +31,7 @@ const rockets = {
   ]
 };
 
+//our transform function return this converted object
 const transformedRocket = {
   id: 1,
   name: "Falcon 9 v1.1",
@@ -151,6 +152,7 @@ describe("TypeScript Interfaces - JsonRocket, JsonResponse", () => {
   });
 });
 
+//testing the transform function with the expected contant "transformedRocket"
 describe("transformRespondRecord", () => {
   it("should return the correct transformed JSON object ", () => {
     const result = transformResponseRecord(rockets.rockets[0]);
