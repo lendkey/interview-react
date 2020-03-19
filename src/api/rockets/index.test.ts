@@ -1,39 +1,15 @@
-import { getRocketsList, getRockets, parseUrl } from "./";
+import {
+  getRocketsList,
+  getRockets,
+  parseUrl,
+  transformResponseRecord,
+  JsonResponse,
+  JsonRocket
+} from "./";
 import axios from "axios";
 jest.mock("axios");
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 import moment from "moment";
-
-// describe("getRocketsList()", () => {
-//   it("returns an array of Rockets", async () => {
-//     const response = await getRocketsList();
-//     if (response.data) {
-//       expect(response.data.length).toEqual(30);
-//       expect(response.data[0]).toEqual({
-//         changed: moment("2017-02-21 00:00:00", "YYYY-MM-DD HH:mm:ss"),
-//         configuration: "9 v1.1",
-//         id: 1,
-//         name: "Falcon 9 v1.1",
-//         wikiURL: new URL("http://en.wikipedia.org/wiki/Falcon_9")
-//       });
-//     }
-//   });
-//   it("returns an error message", async () => {
-//     try {
-//       await getRocketsList();
-//     } catch (e) {
-//       expect(e).toMatch("error");
-//     }
-//   });
-// });
-
-//Even though the above test was actually passing the test cases and getting back data from axios
-//we do not want to actually hit the API EVERY time we test.  This would cause additional API calls,
-//and could end up being a costly mistake.  Also, we want to stay away from testing the actual api calls,
-//for perforance reasons.  Uneccessary HTTP requests are usually public enemy number one when we are looking
-//for ways to optimize our application.
-
-//I will instead mock axios and test the async calls with a mocked version of axios...
 
 //We expect an array of rockets from our API call, below is a mock of what that return actually looks like
 //I am saving it to a constant for ease of reading
@@ -53,6 +29,14 @@ const rockets = {
       changed: "2017-02-21 00:00:00"
     }
   ]
+};
+
+const transformedRocket = {
+  id: 1,
+  name: "Falcon 9 v1.1",
+  configuration: "9 v1.1",
+  wikiURL: parseUrl("http://en.wikipedia.org/wiki/Falcon_9"),
+  changed: moment("2017-02-21 00:00:00", "YYYY-MM-DD HH:mm:ss")
 };
 
 //I want to also test getRockets() which was not in the original implentation.  We should test all our functions
@@ -109,12 +93,28 @@ describe("getRocketsList()", () => {
       });
     }
   });
+
+  //added test for throw error as well as network error
   it("returns an error message on the catch", async () => {
-    try {
-      await getRocketsList();
-    } catch (e) {
-      expect(e).toMatch("error");
-    }
+    //had some trouble here, but this is as close as I can get to mocking a global.window alert
+    jest.spyOn(window, "alert").mockImplementation(() => {
+      return {
+        alert:
+          "Our apologies, the data has errors, we'll try to request it one more time."
+      };
+    });
+
+    //error message to be retunred by catch
+    const error = {
+      errors: { message: "Network error: Something went wrong" }
+    };
+    //mock error call
+    mockedAxios.get.mockRejectedValue(error.errors.message);
+    const response = await getRocketsList();
+    //matches error
+    expect(response).toEqual(error);
+    //alert has been called
+    expect(alert).toHaveBeenCalledTimes(1);
   });
 });
 
@@ -136,5 +136,24 @@ describe("parseUrl()", () => {
       const url = parseUrl(undefined);
       expect(url).toBeUndefined();
     });
+  });
+});
+
+//added testing for TS interfaces, wasn't sure if this was necessary but I'm trying to go for as much coverage as possible
+describe("TypeScript Interfaces - JsonRocket, JsonResponse", () => {
+  it("JsonResponse should look for the correct JSON response ", () => {
+    const tsInterface: JsonResponse = { rockets: rockets.rockets };
+    expect(tsInterface.rockets).toEqual(rockets.rockets);
+  });
+  it("JsonRocket should look for the correct JSON response ", () => {
+    const tsInterface: JsonRocket = rockets.rockets[0];
+    expect(tsInterface).toEqual(rockets.rockets[0]);
+  });
+});
+
+describe("transformRespondRecord", () => {
+  it("should return the correct transformed JSON object ", () => {
+    const result = transformResponseRecord(rockets.rockets[0]);
+    expect(result).toEqual(transformedRocket);
   });
 });
