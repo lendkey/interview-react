@@ -43,6 +43,7 @@ export const UnconnectedRocketTable: FC<RocketsState> = ({
   if (errors.length > 0) {
     return <Alerts errors={errors} />;
   } else if (loading) {
+    console.log(page);
     return <Loading />;
   } else if (page.length === 0) {
     return <p>Sorry, no rockets found.</p>;
