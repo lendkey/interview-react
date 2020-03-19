@@ -8,7 +8,7 @@ jest.mock("axios");
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 //please excuse my naive approach to testing sagas... I'm relatively new to sagas having worked mainly in Thunks for the last 3 years
-//I gave it my bets show and I'm covering 100%... I'm sure I'm missing some things.
+//I gave it my best shot and I'm covering 100%... I'm sure I'm missing some things.
 
 //mocks for axios
 
