@@ -4,7 +4,7 @@ import { listSuccess, error, listRequest } from "./actions";
 import { getRocketsList } from "../../api/rockets";
 
 // Calls the API endpoint to get a page of rockets whenever a LIST_REQUEST action is dispatched
-function* handleListRequest() {
+export function* handleListRequest() {
   const response = yield call(getRocketsList);
 
   if ("errors" in response) {
@@ -15,13 +15,13 @@ function* handleListRequest() {
 }
 
 // Watches for a list request action
-function* watchListRequest() {
+export function* watchListRequest() {
   yield takeLatest(ActionTypes.LIST_REQUEST, handleListRequest);
 }
 
 /* If this was a real app with a router like "connected-react-router", we'd watch
    for the appropriate location change action to trigger the list request action. */
-function* initialSaga() {
+export function* initialSaga() {
   yield put(listRequest());
 }
 

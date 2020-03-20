@@ -25,4 +25,12 @@ export const rocketsReducer = createReducer<RocketsState, RocketAction>(
       loading: false,
       page: action.payload.page
     };
+  })
+  //this was missing, added it so it correctly renders errors on our frontend
+  .handleAction(actions.error, (state, action) => {
+    return {
+      ...state,
+      loading: false,
+      errors: action.payload
+    };
   });
