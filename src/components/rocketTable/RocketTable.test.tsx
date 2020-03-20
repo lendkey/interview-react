@@ -80,48 +80,30 @@ describe("RocketTable component", () => {
     });
   });
 
-  //leaving this in... see my notes below
+  //decided to ahead and change around the error return in getRocketList to return an array
+  //which allowed me to add to the reducer and correctly render the errors on the mock api calls
+  //all is working now!
+
   describe("with errors", () => {
     it("displays the errors", async () => {
-      const errors = [{ message: "Oh no!" }, { message: "Terrible!" }];
-      mockedAxios.get.mockImplementation(() =>
-        Promise.resolve({
-          data: errors
-        })
+      jest.spyOn(window, "alert").mockImplementation(() => {
+        return {
+          alert:
+            "Our apologies, the data has errors, we'll try to request it one more time."
+        };
+      });
+      //error message to be retunred by catch
+      const newError = new Error("error");
+      //mock error call
+      mockedAxios.get.mockRejectedValue(newError);
+      const store = configureStore();
+      const container = render(
+        <Provider store={store}>
+          <RocketTable />
+        </Provider>
       );
-
-      const { findByTestId } = render(
-        <UnconnectedRocketTable loading={false} page={[]} errors={errors} />
-      );
-      const alerts = await findByTestId("alerts");
-      expect(alerts).toHaveTextContent("Oh no!Terrible!");
+      const alerts = await container.findByTestId("alerts");
+      expect(alerts).toHaveTextContent("error");
     });
-  });
-});
-
-//decided to ahead and change around the error return in getRocketList to return an array
-//which allowed me to add to the reducer and correctly render the errors on the mock api calls
-//all is working now!
-
-describe("with errors", () => {
-  it("displays the errors", async () => {
-    jest.spyOn(window, "alert").mockImplementation(() => {
-      return {
-        alert:
-          "Our apologies, the data has errors, we'll try to request it one more time."
-      };
-    });
-    //error message to be retunred by catch
-    const newError = new Error("error");
-    //mock error call
-    mockedAxios.get.mockRejectedValue(newError);
-    const store = configureStore();
-    const container = render(
-      <Provider store={store}>
-        <RocketTable />
-      </Provider>
-    );
-    const alerts = await container.findByTestId("alerts");
-    expect(alerts).toHaveTextContent("error");
   });
 });
