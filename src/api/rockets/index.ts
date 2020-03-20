@@ -68,6 +68,7 @@ export const getRocketsList = async () => {
     alert(
       "Our apologies, the data has errors, we'll try to request it one more time."
     );
-    return { errors: { message: error } };
+    //I'm changing this to return an array because our TYPE is expecting an array, easier to change this than rewrite all the type defs
+    return { errors: [{ message: error }] };
   }
 };

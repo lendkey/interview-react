@@ -99,32 +99,29 @@ describe("RocketTable component", () => {
   });
 });
 
-//code below did not work --- tried triggering the alert component to render by mocking an error return,
-//but it looks like the Alert component is looking for an array, when the getRocketsList function returns
-//an object on its catch... this component will never render, even if I mock the error.  I tried a few things
-//that didn't work so well, and I didn't want to re-write everything before getting your opinion first!
+//decided to ahead and change around the error return in getRocketList to return an array
+//which allowed me to add to the reducer and correctly render the errors on the mock api calls
+//all is working now!
 
-//   describe("with errors", () => {
-//     it("displays the errors", async () => {
-//
-//       jest.spyOn(window, "alert").mockImplementation(() => {
-//         return {
-//           alert:
-//             "Our apologies, the data has errors, we'll try to request it one more time."
-//         };
-//       });
-//       //error message to be retunred by catch
-//       const newError = new Error("error");
-//       //mock error call
-//       mockedAxios.get.mockRejectedValue(newError);
-//       const store = configureStore();
-//       const container = render(
-//         <Provider store={store}>
-//           <RocketTable />
-//         </Provider>
-//       );
-//       const alerts = await container.findByTestId("alerts");
-//       expect(alerts).toHaveTextContent("error");
-//     });
-//   });
-// });
+describe("with errors", () => {
+  it("displays the errors", async () => {
+    jest.spyOn(window, "alert").mockImplementation(() => {
+      return {
+        alert:
+          "Our apologies, the data has errors, we'll try to request it one more time."
+      };
+    });
+    //error message to be retunred by catch
+    const newError = new Error("error");
+    //mock error call
+    mockedAxios.get.mockRejectedValue(newError);
+    const store = configureStore();
+    const container = render(
+      <Provider store={store}>
+        <RocketTable />
+      </Provider>
+    );
+    const alerts = await container.findByTestId("alerts");
+    expect(alerts).toHaveTextContent("error");
+  });
+});

@@ -106,10 +106,10 @@ describe("getRocketsList()", () => {
     });
     //error message to be retunred by catch
     const error = {
-      errors: { message: "Network error: Something went wrong" }
+      errors: [{ message: "Network error: Something went wrong" }]
     };
     //mock error call
-    mockedAxios.get.mockRejectedValue(error.errors.message);
+    mockedAxios.get.mockRejectedValue(error.errors[0].message);
     const response = await getRocketsList();
     //matches error
     expect(response).toEqual(error);

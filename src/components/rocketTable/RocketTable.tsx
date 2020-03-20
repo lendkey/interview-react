@@ -17,7 +17,7 @@ const Alerts: FC<AlertsProps> = ({ errors }) => (
   <div data-testid="alerts">
     {errors.map((error, index) => (
       <Alert key={index} variant="warning">
-        {error.message}
+        {error.message.toString()}
       </Alert>
     ))}
   </div>

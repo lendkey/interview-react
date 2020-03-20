@@ -48,7 +48,7 @@ const newError = new TypeError("Cannot read property 'map' of undefined");
 
 //error payload for mox axios call
 const errorPayload = {
-  message: newError
+  error: [{ message: newError }]
 };
 
 //testing handle request saga
@@ -84,7 +84,7 @@ describe("handleListRequest", () => {
     const response = await getRocketsList();
     gen.next();
     expect(gen.next(response).value).toEqual(
-      put({ type: ActionTypes.ERROR, payload: errorPayload })
+      put({ type: ActionTypes.ERROR, payload: errorPayload.error })
     );
     expect(gen.next().done).toBeTruthy();
   });
