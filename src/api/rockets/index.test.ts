@@ -104,7 +104,6 @@ describe("getRocketsList()", () => {
           "Our apologies, the data has errors, we'll try to request it one more time."
       };
     });
-
     //error message to be retunred by catch
     const error = {
       errors: { message: "Network error: Something went wrong" }

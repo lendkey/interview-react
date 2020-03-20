@@ -45,8 +45,9 @@ export const UnconnectedRocketTable: FC<RocketsState> = ({
   } else if (loading) {
     return <Loading />;
   } else if (page.length === 0) {
-    return <p>Sorry, no rockets found.</p>;
+    return <p data-testid="sorry">Sorry, no rockets found.</p>;
   }
+
   return (
     <Table striped bordered hover data-testid="rockets">
       <thead>

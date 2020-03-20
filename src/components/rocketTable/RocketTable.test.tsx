@@ -27,23 +27,26 @@ const rockets = {
   ]
 };
 
+const emptyRockets = {
+  rockets: []
+};
+
 describe("RocketTable component", () => {
   jest.useFakeTimers();
-  mockedAxios.get.mockImplementation(() =>
-    Promise.resolve({
-      data: rockets
-    })
-  );
 
   describe("with a successful API call", () => {
     it("displays a table of rockets", async () => {
+      mockedAxios.get.mockImplementation(() =>
+        Promise.resolve({
+          data: rockets
+        })
+      );
       const store = configureStore();
       const { findByTestId } = render(
         <Provider store={store}>
           <RocketTable />
         </Provider>
       );
-
       // The loading indicator should appear, then disappear
       const loading = await findByTestId("loading");
       jest.advanceTimersByTime(500); // Wait for the fake API call to finish
@@ -54,25 +57,30 @@ describe("RocketTable component", () => {
       const table = await findByTestId("rockets");
       const { getAllByRole } = within(table);
       expect(getAllByRole("columnheader")).toHaveLength(3);
-
       expect(getAllByRole("row")).toHaveLength(2);
     });
   });
 
+  //forgot to swap this fake component out with the real one
   describe("with no results", () => {
     it("displays a message", async () => {
       mockedAxios.get.mockImplementation(() =>
         Promise.resolve({
-          data: []
+          data: emptyRockets
         })
       );
-      const { container } = render(
-        <UnconnectedRocketTable loading={false} page={[]} errors={[]} />
+      const store = configureStore();
+      const { findByTestId } = render(
+        <Provider store={store}>
+          <RocketTable />
+        </Provider>
       );
-      expect(container).toHaveTextContent("Sorry, no rockets found.");
+      const text = await findByTestId("sorry");
+      expect(text.innerHTML).toBe("Sorry, no rockets found.");
     });
   });
 
+  //leaving this in... see my notes below
   describe("with errors", () => {
     it("displays the errors", async () => {
       const errors = [{ message: "Oh no!" }, { message: "Terrible!" }];
@@ -90,3 +98,33 @@ describe("RocketTable component", () => {
     });
   });
 });
+
+//code below did not work --- tried triggering the alert component to render by mocking an error return,
+//but it looks like the Alert component is looking for an array, when the getRocketsList function returns
+//an object on its catch... this component will never render, even if I mock the error.  I tried a few things
+//that didn't work so well, and I didn't want to re-write everything before getting your opinion first!
+
+//   describe("with errors", () => {
+//     it("displays the errors", async () => {
+//
+//       jest.spyOn(window, "alert").mockImplementation(() => {
+//         return {
+//           alert:
+//             "Our apologies, the data has errors, we'll try to request it one more time."
+//         };
+//       });
+//       //error message to be retunred by catch
+//       const newError = new Error("error");
+//       //mock error call
+//       mockedAxios.get.mockRejectedValue(newError);
+//       const store = configureStore();
+//       const container = render(
+//         <Provider store={store}>
+//           <RocketTable />
+//         </Provider>
+//       );
+//       const alerts = await container.findByTestId("alerts");
+//       expect(alerts).toHaveTextContent("error");
+//     });
+//   });
+// });
